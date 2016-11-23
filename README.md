@@ -1,4 +1,4 @@
-# Angular-Wordpress-Theme
+# Angular Wordpress Theme Photography, Graphic Designer, Art...
 Plantilla Wordpress construida con AngularJS, Wp REst Api, ACF
 
 ###Después de habilitar el tema
