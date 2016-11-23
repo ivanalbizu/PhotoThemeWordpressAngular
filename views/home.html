@@ -1,0 +1,44 @@
+<div class="container"
+  ng-if="vm.restApiActive && vm.acfActive">
+
+  <div class="row">
+
+    <div class="col-md-4">
+      <h3>Latest posts</h3>
+      <div ng-repeat="item in vm.posts">
+        <img ng-if="item.url_thumbnail.list_post_large" ng-src="{{item.url_thumbnail.list_post_large}}" alt="" />
+        <h4 ng-bind-html="item.title.rendered"></h4>
+        <a href="#/posts/{{item.id}}">See more</a>
+        <hr>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <h3>Latest works</h3>
+      <div class="gallery">
+        <div ng-repeat="item in vm.portfolios" class="animate-repeat">
+          <div class="feature">
+            <a href="#/portfolios/{{item.id}}">
+              <img ng-if="item.url_thumbnail.medium" ng-src="{{item.url_thumbnail.medium}}" alt="" />
+              <div class="feature-text-container">
+                <div class="feature-text">
+                  <h3 ng-bind-html="item.title.rendered"></h3>
+                  <span ng-repeat="post in item.post_categories">{{post.name}}</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+<div class="container"
+  ng-if="!vm.restApiActive || !vm.acfActive">
+  <h4>Contacta con el administrador, algo está fallando y pueda serle útil</h4>
+  <p>Puede que necesite instalar o activar algún plugin</p>
+</div>

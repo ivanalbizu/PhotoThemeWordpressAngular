@@ -1,0 +1,59 @@
+<div class="container"
+  ng-if="vm.restApiActive && vm.acfActive"
+  infinite-scroll="vm.contents.nextPage()"
+  infinite-scroll-disabled="vm.contents.busy"
+  infinite-scroll-listen-for-event="refreshOutput"
+  infinite-scroll-distance="1">
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div ng-repeat="item in vm.contents.items | filter:search | isCheckedCategory:selectedCategory" class="col-md-12 animate-repeat">
+          <img ng-if="item.url_thumbnail.list_post_large" ng-src="{{item.url_thumbnail.list_post_large}}" alt="" />
+          <h3 ng-bind-html="item.title.rendered"></h3>
+          <ul class="list-inline pull-left">
+            <li ng-repeat="term in item.post_categories">
+              <a ng-click="vm.chooseCategory(term.term_id)" href="javascript:void(0)">{{term.name}}</a>
+            </li>
+          </ul>
+          <span class="pull-right">{{item.date | date : "MMMM y"}}</span>
+          <div class="excerpt" ng-bind-html="item.excerpt.rendered"></div>
+          <a href="#/posts/{{item.id}}">See more</a>
+          <hr>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row" id="sidebar">
+        <div class="col-md-12 sidebar-box">
+          <input type="search" id="search" name="search" ng-model="search" placeholder="Search">
+        </div>
+        <div class="col-md-12 sidebar-box">
+          <h4>Categories</h4>
+          <ul class="list-inline filter-tags">
+            <li>
+              <a ng-click="vm.chooseCategory('all')" ng-class="{active : selectedCategory == 'all'}" href="javascript:void(0)">All</a>
+            </li>
+            <li ng-repeat="term in vm.terms">
+              <a ng-click="vm.chooseCategory(term.id)" ng-class="{active : selectedCategory === term.id}" href="javascript:void(0)">{{term.name}}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-12 sidebar-box">
+          <h4>Latest Posts</h4>
+          <ul class="list-reset">
+            <li ng-repeat="item in vm.items">
+              <a href="#/posts/{{item.id}}" ng-bind-html="item.title.rendered"></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="container" ng-if="!vm.restApiActive || !vm.acfActive">
+  <h4>Contacta con el administrador, algo está fallando y pueda serle útil</h4>
+  <p>Puede que necesite instalar o activar algún plugin</p>
+</div>

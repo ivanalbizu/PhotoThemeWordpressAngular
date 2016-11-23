@@ -1,0 +1,52 @@
+<div class="container"
+  ng-if="vm.restApiActive && vm.acfActive">
+
+  <span ng-bind-html="vm.item.title.rendered" class="verticaltext"></span>
+  <div class="row">
+    <div class="col-md-4">
+      <h3 class="single-portfolio-title" ng-bind-html="vm.item.title.rendered"></h3>
+      <p>{{vm.item.fields.mes}} {{vm.item.fields.anyo}}</p>
+      <div ng-bind-html="vm.item.fields.contenido_portfolio"></div>
+      <div class="prenext-box large-devices">
+        <a class="prenext-btn" ng-show="vm.result.previous" href="#/portfolios/{{vm.result.previous}}" title="Previous work">&larr;</a>
+        <a class="prenext-btn pull-right" ng-show="vm.result.next" href="#/portfolios/{{vm.result.next}}" title="Next work">&rarr;</a>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="gallery" gallery="{selector: '.image'}">
+        <div ng-repeat="url in vm.item.url_gallery">
+          <a href="{{url}}" class="image" title="{{url.title}}">
+            <img ng-src="{{url}}" />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 small-devices">
+      <div class="prenext-box">
+        <a class="prenext-btn" ng-show="vm.result.previous" href="#/portfolios/{{vm.result.previous}}" title="Previous work">&larr;</a>
+        <a class="prenext-btn pull-right" ng-show="vm.result.next" href="#/portfolios/{{vm.result.next}}" title="Next work">&rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" ng-if="!vm.restApiActive || !vm.acfActive">
+  <h4>Contacta con el administrador, algo está fallando y pueda serle útil</h4>
+  <p>Puede que necesite instalar o activar algún plugin</p>
+</div>
+
+<style>
+  .navbar-right li:nth-child(2) {
+    text-decoration: underline;
+  }
+</style>
+
+<script>
+  jQuery(window).scroll(function() {
+      if (jQuery(document).scrollTop() > 60) {
+          jQuery('.verticaltext').css({'opacity':'1', 'visibility':'visible'});
+      } else {
+          jQuery('.verticaltext').css({'opacity':'0', 'visibility':'hidden'});
+      }
+  });
+</script>

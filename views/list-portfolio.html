@@ -1,0 +1,40 @@
+<div class="container"
+  ng-if="vm.restApiActive && vm.acfActive"
+  infinite-scroll="vm.contents.nextPage()"
+  infinite-scroll-disabled="vm.contents.busy"
+  infinite-scroll-listen-for-event="refreshOutput"
+  infinite-scroll-distance="1">
+
+  <ul class="list-inline filter-horizontal">
+    <li>
+      <a ng-click="vm.chooseCategory('all')" ng-class="{active : vm.selectedCategory == 'all'}" href="javascript:void(0)">All</a>
+    </li>
+    <li ng-repeat="term in vm.terms">
+      <a ng-click="vm.chooseCategory(term.id)" ng-class="{active : vm.selectedCategory === term.id}" href="javascript:void(0)">{{term.name}}</a>
+    </li>
+  </ul>
+
+  <div class="gallery">
+
+    <div ng-repeat="item in vm.contents.items | isCheckedCategory:vm.selectedCategory" class="animate-repeat">
+      <div class="feature">
+        <a href="#/portfolios/{{item.id}}">
+          <img ng-if="item.url_thumbnail.medium" ng-src="{{item.url_thumbnail.medium}}" alt="" />
+          <div class="feature-text-container">
+            <div class="feature-text">
+              <h3 ng-bind-html="item.title.rendered"></h3>
+              <span ng-repeat="post in item.post_categories">{{post.name}}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="container" ng-if="!vm.restApiActive || !vm.acfActive">
+  <h4>Contacta con el administrador, algo está fallando y pueda serle útil</h4>
+  <p>Puede que necesite instalar o activar algún plugin</p>
+</div>
